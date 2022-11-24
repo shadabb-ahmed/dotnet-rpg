@@ -1,10 +1,11 @@
+using AutoMapper;
 namespace dotnet_rpg.Services.CharacterService
 {
     public class CharacterService : ICharacterService
     {
          private static List<Character> characters = new List<Character>{
             new Character(),
-            new Character{Name = "sam"}
+            new Character{Id=1, Name = "sam"}
         
         };
         private readonly IMapper _mapper;
@@ -14,7 +15,7 @@ namespace dotnet_rpg.Services.CharacterService
 
         public async Task<ServiceResponse<List<GetCharacterDto>>> GetAllCharacters(){
             var serviceResponse = new ServiceResponse<List<GetCharacterDto>>();
-            serviceResponse.Data = characters;
+            serviceResponse.Data = characters.Select(c => _mapper.Map<GetCharacterDto>(c)).ToList();
             return serviceResponse;
         }
          public async Task<ServiceResponse<GetCharacterDto>> GetCharacterById(int id){
