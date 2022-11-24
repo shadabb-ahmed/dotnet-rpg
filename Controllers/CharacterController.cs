@@ -17,18 +17,13 @@ namespace dotnet_rpg.Controllers
             return Ok(characters);
         }
 
-        [HttpGet]
-        public ActionResult<Character> GetSingleCharacter() {
-            return Ok(characters[0]);
-        }
-
         [HttpGet("{id}")]
         public ActionResult<Character> GetCharacterById(int id) {
             return Ok(characters.FirstOrDefault(c => c.Id == id));
         }
 
         [HttpPost]
-        public ActionResult<List<Character>> GetCharacterById(Character character) {
+        public ActionResult<List<Character>> AddCharacters(Character character) {
             characters.Add(character);
             return Ok(characters);
         }
