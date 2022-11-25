@@ -1,7 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 using dotnet_rpg.Services.CharacterService;
+using Microsoft.AspNetCore.Authorization;
 namespace dotnet_rpg.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
     
@@ -11,7 +13,8 @@ namespace dotnet_rpg.Controllers
         public CharacterController(ICharacterService characterService){
             _characterService = characterService;
         }
-
+        // This method is open in this authorize controller
+        [AllowAnonymous]
         [HttpGet("GetAll")]
         public async Task<ActionResult<ServiceResponse<List<Character>>>> GetCharacterList() {
             return Ok(await _characterService.GetAllCharacters());
